@@ -49,25 +49,7 @@ class MoreLikeThisNode(template.Node):
 
 @register.tag
 def more_like_this(parser, token):
-    """
-    Fetches similar items from the search index to find content that is similar
-    to the provided model's content.
 
-    Syntax::
-
-        {% more_like_this model_instance as varname [for app_label.model_name,app_label.model_name,...] [limit n] %}
-
-    Example::
-
-        # Pull a full SearchQuerySet (lazy loaded) of similar content.
-        {% more_like_this entry as related_content %}
-
-        # Pull just the top 5 similar pieces of content.
-        {% more_like_this entry as related_content limit 5  %}
-
-        # Pull just the top 5 similar entries or comments.
-        {% more_like_this entry as related_content for "blog.entry,comments.comment" limit 5  %}
-    """
     bits = token.split_contents()
 
     if not len(bits) in (4, 6, 8):

@@ -19,7 +19,6 @@ def fetch_compare(request):
         stock_return1 = []
         stock_return2 = []
         stock_return3 = []
-        # form = NameForm(request.POST)
         
         quandl.ApiConfig.api_key = "23KLyzjn5UvKQog-DZyM"
         company1 = request.POST.get('company_name1')
@@ -33,11 +32,7 @@ def fetch_compare(request):
             company.append(company3)
         
         start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
-        
-        # print(company1)
-        # print(start_date)
-        # print(end_date)
+        end_date = request.POST.get('end_date') 
 
         dataRAW = quandl.get_table('WIKI/PRICES', ticker=company,
                          qopts={'columns': ['ticker', 'date', 'adj_close']},
@@ -46,7 +41,6 @@ def fetch_compare(request):
         new = dataRAW.set_index('date')
         data = new.pivot(columns='ticker')
         
-        # Initializing closing prices.
         if len(data.columns) == 3:
             close1 = list(data[data.columns[0]].values[:])
             close2 = list(data[data.columns[1]].values[:])
@@ -58,9 +52,7 @@ def fetch_compare(request):
         
         dateData = dataRAW.set_index('ticker')
         date_col = dateData.ix[:,0]
-        date_json = date_col.to_json(orient='records') # Extracting date in records format of JSON  
-
-        # Calculating stock returns for the companies with base price as the price offered at the time of IPO / the start date provided.
+        date_json = date_col.to_json(orient='records')
         if len(data.columns) == 3:
             close1 = pd.DataFrame(close1)
             stock_return1 = close1.apply(lambda x: x / x[0])
@@ -97,12 +89,8 @@ def fetch_compare(request):
             close3 = []
             stock_growth3 = []
         
-        # print(stock_growth1)
         return render(request, 'myapp/Comparison_Form.html', {'date': date_json, 'price1': close1, 'price2': close2, 'price3': close3 , 'stock_return1': stock_return1, 'stock_return2' : stock_return2, 'stock_return3' : stock_return3 , 'stock_growth1' : stock_growth1 , 'stock_growth2' : stock_growth2 , 'stock_growth3' : stock_growth3 , 'company1': company1, 'company2': company2, 'company3': company3})
 
-        # check whether it's valid:
-
-    # if a GET (or any other method) we'll create a blank form
     else:
         quandl.ApiConfig.api_key = "23KLyzjn5UvKQog-DZyM"
         company = 'AAPL'

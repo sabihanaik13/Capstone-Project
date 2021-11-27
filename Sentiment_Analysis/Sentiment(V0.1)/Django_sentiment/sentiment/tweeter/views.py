@@ -17,7 +17,7 @@ class NameForm(forms.Form):
 
 
 def fetch(request):
-    #labels = ['neutral_tweet' , 'Negative_tweet' , 'Positive_tweet' ]
+    labels = ['neutral_tweet' , 'Negative_tweet' , 'Positive_tweet' ]
     values = [33 , 33 , 34]
 
     if request.method == 'POST':
@@ -68,66 +68,37 @@ def fetch(request):
 
             def get_tweets(self, query, count = 10):
 
-                # empty list to store parsed tweets
                 tweets = []
 
                 try:
-                    # call twitter api to fetch tweets
                     fetched_tweets = self.api.search(q = query, count = count)
-
-                    # parsing tweets one by one
                     for tweet in fetched_tweets:
-                        # empty dictionary to store required params of a tweet
                         parsed_tweet = {}
-
-                        # saving text of tweet
                         parsed_tweet['text'] = tweet.text
-                        # saving sentiment of tweet
                         parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.text)
 
-                        # appending parsed tweet to tweets list
                         if tweet.retweet_count > 0:
-                            # if tweet has retweets, ensure that it is appended only once
                             if parsed_tweet not in tweets:
                                 tweets.append(parsed_tweet)
                         else:
                             tweets.append(parsed_tweet)
 
-                    # return parsed tweets
                     return tweets
 
                 except tweepy.TweepError as e:
-                    # print error (if any)
                     print("Error : " + str(e))
 
-
-        # creating object of TwitterClient Class
         api = TwitterClient()
-        # calling function to get tweets
         tweets = api.get_tweets(query = company, count = 200)
 
-        # picking positive tweets from tweets
         ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
-        # percentage of positive tweets
-        #return("Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets)))
-        # picking negative tweets from tweets
         ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
-        # percentage of negative tweets
-        #print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets)))
-        # percentage of neutral tweets
-        #return(" \t Neutral tweets percentage: {} %  ".format(100*(len(tweets) -len( ntweets) - len(ptweets))/len(tweets)) + " \n \t Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets)) + " \n \t Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets))  )
-        #dict = {'values': {u'neutral_tweet':(100*(len(tweets) -len( ntweets) - len(ptweets))/len(tweets)) , u'positive':(100*len(ptweets)/len(tweets))  , u'negative':(100*len(ntweets)/len(tweets))}}
-        #labels = [('neutral_tweet') , ('Negative_tweet') , ('Positive_tweet') ]
         values = [(100*(len(tweets) -len( ntweets) - len(ptweets))/len(tweets)) , (100*len(ntweets)/len(tweets))  , (100*len(ptweets)/len(tweets))]
         return render(request, 'myapp/company.html', { 'company': company , 'values' : values })
 
-        # check whether it's valid:
     else:
         company = 'cipla'
         return render(request, 'myapp/company.html', { 'company': company ,  'values' : values })
-
-
-    # if a GET (or any other method) we'll create a blank form
 
 
 def chart(request):
