@@ -97,9 +97,6 @@ def fetch(request):
         print(stock_growth1)
         return render(request, 'myapp/Comparison_Form.html', {'date': date_json, 'price1': close1, 'price2': close2, 'price3': close3 , 'stock_return1': stock_return1, 'stock_return2' : stock_return2, 'stock_return3' : stock_return3 , 'stock_growth1' : stock_growth1 , 'stock_growth2' : stock_growth2 , 'stock_growth3' : stock_growth3 , 'company1': company1, 'company2': company2, 'company3': company3})
 
-        # check whether it's valid:
-
-    # if a GET (or any other method) we'll create a blank form
     else:
         quandl.ApiConfig.api_key = "23KLyzjn5UvKQog-DZyM"
         company = 'AAPL'
