@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="background-image: url(https://t4.ftcdn.net/jpg/02/00/68/69/360_F_200686968_KS9NVTJgvjMQs2FniVHyIJaAIcg5p7D0.jpg);">
+    <head>
+        {% load static %}
+        <title>
+            PredStocks
+        </title>
+        <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+            <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+            <link href="{% static 'pred_app/css/style.css' %}" rel="stylesheet" type="text/css"/>
+            <link href="{% static 'pred_app/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+                <link href="{% static 'pred_app/fonts/font-awesome/css/font-awesome.css' %}" rel="stylesheet" type="text/css">
+                    <link href="{% static 'pred_app/css/menusearch.css' %}" rel="stylesheet" type="text/css">
+                        <link href="{% static 'pred_app/css/style.css' %}" rel="stylesheet" type="text/css">
+                            <link href="{% static 'pred_app/css/responsive.css' %}" rel="stylesheet" type="text/css">
+                                <script src="{% static 'pred_app/js/modernizr.custom.js' %}" type="text/javascript">
+                                </script>
+                                <link href="http://fonts.googleapis.com/css?family=Raleway:500,600,700,100,800,900,400,200,300" rel="stylesheet" type="text/css">
+                                    <link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+                                        <script src="{% static 'pred_app/js/jquery.1.11.1.js' %}" type="text/javascript">
+                                        </script>
+                                        <script src="{% static 'pred_app/js/jquery-1.10.2.min.js' %}" type="text/javascript">
+                                        </script>
+                                        <script src="{% static 'pred_app/js/handlebars.js' %}">
+                                        </script>
+                                        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" type="text/javascript">
+                                        </script>
+                                    </link>
+                                </link>
+                            </link>
+                        </link>
+                    </link>
+                </link>
+            </link>
+        </link>
+    </head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+        </script>
+        <script src="{% static 'pred_app/js/jquery.1.11.1.js'%}" type="text/javascript">
+        </script>
+        <script src="{% static 'pred_app/js/bootstrap.js'%}" type="text/javascript">
+        </script>
+        
+        <script src="{% static 'pred_app/js/typeahead.js'%}">
+        </script>
+        <script src="{% static 'pred_app/js/search.js'%}">
+        </script>
+        <div class="header" style="background-color: rgb(40, 40, 40); color: white;">
+            <div class="logo">
+                <h1>
+                    <a href="index" onmouseover="mouseOver()" onmouseout="mouseOut()">
+                        <span id="preds_logo">
+                            Stock
+                        </span>
+                        <span id="stocks_logo">
+                        Analysis
+                    </span>
+                        <br>
+                            <small>
+                                Making investments simple!
+                            </small>
+                        </br>
+                    </a>
+                </h1>
+            </div>
+            <div class="menu_nav">
+                <ul>
+                    {% block nav %}{% endblock %}
+                </ul>
+            </div>
+            <div class="clr">
+            </div>
+            <div class="hbg">
+                <img alt="" class="fl" height="400px" src="{% static 'pred_app/img/header_b.jpg' %}" width="100%"/>
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        {% block content %}{% endblock %}
+        <div class="clr">
+        </div>
+    </body>
+</html>
+<div class="clr">
+</div>
+<div class="footer">
+    <div class="footer_resize">
+        <p class="lf">
+            © Copyright
+            <a href="#">
+                Sabiha Mhatarnaik
+            </a>
+            .
+        </p>
+        <div class="clr">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function mouseOver() {
+  document.getElementById("stocks_logo").style.color = "#fe001a";
+  document.getElementById("preds_logo").style.color = "#97c950";
+}
+function mouseOut() {
+  document.getElementById("stocks_logo").style.color = "#97c950";
+  document.getElementById("preds_logo").style.color = "#fe001a";
+}
+</script>
